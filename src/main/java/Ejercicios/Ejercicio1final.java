@@ -1,0 +1,103 @@
+package main.java.Ejercicios;
+
+
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Iterator;
+import java.util.Collections; // Necesario para ordenar de mayor a menor
+import java.util.Scanner;     // Necesario para leer los números del usuario
+
+public class Ejercicio1final {
+
+    public static void main(String[] args) {
+
+        //crear la colección TreeSet
+        Set<String> lista = new TreeSet();
+        lista.add("hola");
+        lista.add("que tal?");
+        lista.add("ya casi es navidad");
+        lista.add("programadores");
+        lista.add("hola");
+        lista.add("el sábado hay clases");
+
+        //recorrer la colección
+        Iterator it = lista.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+
+        System.out.println("");
+        System.out.println("**************** LISTA 2 ****************");
+        //declaración de colección de tipo Equipo
+        TreeSet<Equipo> equipos = new TreeSet();
+        equipos.add(new Equipo(4, "Once Lobos FC", "El Salvador"));
+        equipos.add(new Equipo(1, "Sonsonate FC", "El Salvador"));
+        equipos.add(new Equipo(3, "CD FAS", "El Salvador"));
+        equipos.add(new Equipo(5, "Municipal Limeño", "El Salvador"));
+        equipos.add(new Equipo(2, "Águila", "El Salvador"));
+        equipos.add(new Equipo(1, "Chalatenango FC", "El Salvador")); //en duda
+
+        //recorrer la colección para mostrar los elementos
+        for (Equipo eq : equipos) {
+            System.out.println(eq.getId() + " " + eq.getNombre());
+        }
+
+        // ==================== LISTA 3 ====================
+        System.out.println("");
+        System.out.println("**************** LISTA 3 ****************");
+
+        // Creamos el TreeSet que ordena de mayor a menor usando Collections.reverseOrder()
+        TreeSet<Integer> numeros = new TreeSet<>(Collections.reverseOrder());
+        Scanner leer = new Scanner(System.in);
+        String respuesta;
+
+        // Leer múltiples valores numéricos hasta que el usuario decida no continuar
+        do {
+            System.out.print("Ingrese un número entero: ");
+            int num = leer.nextInt();
+            numeros.add(num);
+
+            System.out.print("¿Desea ingresar otro número? (si/no): ");
+            respuesta = leer.next();
+        } while (respuesta.equalsIgnoreCase("si"));
+
+        // Mostrar el listado de números ingresados ordenados de mayor a menor
+        System.out.println("\nListado de números ordenados de mayor a menor:");
+        for (Integer n : numeros) {
+            System.out.println(n);
+        }
+    }
+}
+
+class Equipo implements Comparable<Equipo> {
+
+    private int id;
+    private String nombre;
+    private String pais;
+
+    public Equipo() {
+    }
+
+    public Equipo(int id, String nombre, String pais) {
+        this.id = id;
+        this.nombre = nombre;
+        this.pais = pais;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    @Override
+    public int compareTo(Equipo o) {
+        return this.id - o.getId();
+    }
+}
